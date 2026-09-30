@@ -6,7 +6,7 @@
 - **MSSV:** 2A202602866
 - **Lớp:** K4-L3B
 - **Repository URL:** https://github.com/TuTu99999/K4-L3-DAY13-PhamKhacTu-2A202602866-Monitoring-LLMOps
-- **Commit SHA cuối:** dùng SHA của commit `submission: complete monitoring llmops lab` được tạo sau khi hoàn thiện báo cáo; đây cũng là SHA cần push và nộp trên LMS/Codelabs.
+- **Commit SHA cuối:** `1059adffb2731d30d33336c3362ab6d7aca1353c`
 - **Challenge ID:** `day13-k4-l3b-monitoring-llmops-v1`
 - **Tên project Langfuse cá nhân:** `day13-k4-l3b-2A202602866`
 

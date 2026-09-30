@@ -67,3 +67,12 @@ def test_agent_records_prompt_version_with_v4_observation_api(monkeypatch) -> No
     assert span_update["version"] == "3"
     assert propagated[0]["metadata"]["correlation_id"] == "req-12345678"
     assert propagated[-1]["prompt"] is client.prompt
+    assert propagated[-1]["metadata"] == {
+        "feature": "qa",
+        "model": "claude-sonnet-4-5",
+        "correlation_id": "req-12345678",
+        "prompt_name": "day13-chat",
+        "prompt_label": "production",
+        "prompt_version": "3",
+        "prompt_source": "langfuse",
+    }

@@ -94,7 +94,7 @@
 
 - [x] Kết quả và evidence thuộc commit nộp bài cuối.
 - [x] Tất cả ảnh/output mở được bằng đường dẫn tương đối.
-- [ ] Có đúng 3 file text và 5 ảnh runtime theo hướng dẫn (hiện giữ 3 file text và bộ ảnh chi tiết 01–14).
+- [ ] Có đúng 3 file text và 5 ảnh runtime theo hướng dẫn.
 - [x] Incident evidence nối đúng metric → log → trace.
 - [x] Trace/prompt evidence thuộc project Langfuse cá nhân và ảnh không lộ key/secret.
 - [x] Repository chạy lại được theo README.

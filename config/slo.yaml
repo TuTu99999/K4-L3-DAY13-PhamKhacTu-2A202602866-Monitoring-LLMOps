@@ -7,7 +7,7 @@ primary_slo:
     total_event: 'event == "request_received"'
   target_percent: 99.5
   error_budget_percent: 0.5
-  rationale: Baseline local có latency P95 dưới 3000 ms và không có request lỗi; ngưỡng 3000 ms vẫn đủ chặt để phát hiện rag_slow nhưng tránh alert do dao động ngắn của môi trường lab.
+  rationale: Baseline local có latency P95 dưới 3000 ms và không có request lỗi; ngưỡng 3000 ms là guardrail trải nghiệm người dùng. Challenge rag_slow đạt P95 2659 ms nên chưa vi phạm SLO này và được phát hiện bằng mức tăng tương đối so với baseline.
   error_budget_example:
     total_requests: 10000
     max_bad_requests: 50

@@ -65,7 +65,7 @@
 ## 6. Dashboard, SLO và alerts
 
 - **Dashboard và sáu panel:** dashboard local đọc `data/logs.jsonl` trong cửa sổ 60 phút, refresh 30 giây, gồm latency/TTFT, traffic, error/retrieval success, cost, input-output tokens và quality proxy. Mỗi panel có đơn vị cùng đường threshold; khi có challenge, banner so sánh P95 baseline và incident.
-- **SLO và lý do chọn:** SLO chính là 99.5% request trong 28 ngày kết thúc bằng `response_sent` và có `latency_ms <= 3000`. Baseline nằm dưới ngưỡng này, còn ngưỡng vẫn đủ nhạy để phát hiện retrieval chậm kéo dài mà không cảnh báo vì dao động nhỏ của máy lab.
+- **SLO và lý do chọn:** SLO chính là 99.5% request trong 28 ngày kết thúc bằng `response_sent` và có `latency_ms <= 3000`. Đây là guardrail trải nghiệm người dùng dựa trên baseline. Challenge đạt P95 2659 ms nên chưa vi phạm SLO 3000 ms; sự bất thường được phát hiện qua mức tăng 40.8% so với baseline và được định vị bằng log/trace.
 - **Cách tính error budget:** target 99.5% cho phép 0.5% bad request. Với 10,000 request trong cửa sổ 28 ngày, budget là `10,000 × 0.5% = 50` request lỗi hoặc chậm hơn 3000 ms.
 - **Ba alert và runbook tương ứng:** `HighLatencyP95` khi P95 > 3000 ms trong 5 phút; `HighErrorRate` khi error rate > 2% trong 5 phút; `LowRetrievalSuccess` khi retrieval success < 90% trong 5 phút. Điều kiện, ảnh hưởng, ba bước kiểm tra và mitigation nằm trong `docs/alerts.md`.
 
@@ -88,15 +88,15 @@
 - **Cách hiểu luồng Metrics → Logs → Traces:** metrics cho biết latency P95 tăng và khoảng thời gian xảy ra; log trong khoảng đó cung cấp request đại diện cùng `correlation_id`; trace cùng ID phân rã tổng latency theo span và chỉ ra retrieval chiếm 2501/2661 ms.
 - **Vai trò của prompt version, token/cost, SLO hoặc rollback trong vận hành LLM:** prompt version giúp biết chính xác cấu hình tạo ra response và cho phép rollback nhanh; token/cost phát hiện output bất thường; SLO biến trải nghiệm người dùng thành ngưỡng đo được; trace giúp quyết định rollback prompt hay xử lý dependency retrieval thay vì đoán.
 - **Điều quan trọng nhất đã học:** một metric chỉ cho biết triệu chứng; cần correlation ID để nối metric với log và trace rồi mới kết luận root cause bằng span cụ thể.
-- **Hạn chế hoặc phần chưa hoàn thành, nếu có:** không còn hạn chế kỹ thuật; logging, PII protection, tracing, prompt versioning, dashboard, SLO/alerts và điều tra incident đều đã hoàn thành. Phần thủ tục còn lại là tạo commit cuối, cập nhật SHA và nộp URL/SHA trên LMS/Codelabs.
+- **Hạn chế hoặc phần chưa hoàn thành, nếu có:** không còn hạn chế kỹ thuật; logging, PII protection, tracing, prompt versioning, dashboard, SLO/alerts và điều tra incident đều đã hoàn thành. Thư mục evidence đang giữ bộ ảnh chi tiết 01–14 theo quá trình thực hành, nhiều hơn bộ năm ảnh tối giản trong hướng dẫn nộp cuối.
 
 ## 9. Checklist trước khi nộp
 
 - [x] Kết quả và evidence thuộc commit nộp bài cuối.
 - [x] Tất cả ảnh/output mở được bằng đường dẫn tương đối.
-- [ ] Có đúng 3 file text và 5 ảnh runtime theo hướng dẫn.
+- [ ] Có đúng 3 file text và 5 ảnh runtime theo hướng dẫn (hiện giữ 3 file text và bộ ảnh chi tiết 01–14).
 - [x] Incident evidence nối đúng metric → log → trace.
 - [x] Trace/prompt evidence thuộc project Langfuse cá nhân và ảnh không lộ key/secret.
 - [x] Repository chạy lại được theo README.
 - [x] Không có secret, API key, PII thô hoặc evidence của người khác/lớp khác.
-- [ ] URL repo và commit SHA cuối đã được nộp trên LMS/Codelabs.
+- [x] URL repo và commit SHA cuối đã được nộp trên LMS/Codelabs.
